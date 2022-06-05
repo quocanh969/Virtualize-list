@@ -1,0 +1,13 @@
+.itemRow {
+  display: flex;
+  align-items: center;
+
+  height: 50px;
+  border: 1px solid black;
+  list-style-type: none;
+  padding: 5px;
+}
+
+.evenRow {
+  background-color: lightgrey;
+}

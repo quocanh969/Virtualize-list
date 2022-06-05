@@ -1,24 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useMemo, useState } from "react";
+import { VirtualizeList } from "./Component/VirtualizeList/VirtualizeList";
+import "./App.css";
+
+const LIST_LENGTH = 100;
+const TAB_KEY = {
+  virtualize: "virtualize",
+};
 
 function App() {
+  const list: string[] = useMemo(() => {
+    return new Array(LIST_LENGTH).fill(null).map((_, i) => `item-${i}`);
+  }, []);
+  const [tab, setTab] = useState(0);
+  const tabs = [
+    { key: TAB_KEY.virtualize, component: <VirtualizeList list={list} /> },
+  ];
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {/* Menu tab */}
+      <div className="menuTab">
+        {tabs.map((tab, index) => (
+          <div key={tab.key} onClick={() => setTab(index)}>
+            {tab.key}
+          </div>
+        ))}
+      </div>
+      {/* Component */}
+      <div className="contentWindow">{tabs[tab].component}</div>
     </div>
   );
 }
